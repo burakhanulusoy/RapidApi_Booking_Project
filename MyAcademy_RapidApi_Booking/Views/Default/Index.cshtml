@@ -1,0 +1,632 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/WebUI/Index.cshtml";
+}
+
+<div id="wrapper">
+    <!-- content-->
+    <div class="content">
+        <!--section -->
+        <section class="hero-section" data-scrollax-parent="true" id="sec1">
+            <div class="hero-parallax">
+                <div class="bg" data-bg="@Url.Content("~/booking/easybook/images/bg/3.jpg")" data-scrollax="properties: { translateY: '200px' }"></div>
+                <div class="overlay op7"></div>
+            </div>
+            <div class="hero-section-wrap fl-wrap">
+                <div class="container">
+                    <div class="home-intro">
+                        <div class="section-title-separator"><span></span></div>
+                        <h2>EasyBook Otel Rezervasyon Sistemi</h2>
+                        <span class="section-separator"></span>
+                        <h3>EasyBook ile birlikte dünyayı keşfetmeye başlayalım.</h3>
+                    </div>
+                    <div class="main-search-input-wrap">
+                        <div class="main-search-input fl-wrap">
+                            <div class="main-search-input-item location" id="autocomplete-container">
+                                <span class="inpt_dec"><i class="fal fa-map-marker"></i></span>
+                                <input type="text" placeholder="Ülke , Şehir..." class="autocomplete-input" id="autocompleteid2" value="" />
+                                <a href="#"><i class="fal fa-dot-circle"></i></a>
+                            </div>
+                            <div class="main-search-input-item main-date-parent main-search-input-item_small">
+                                <span class="inpt_dec"><i class="fal fa-calendar-check"></i></span> <input type="text" placeholder="Tarih" name="main-input-search" value="" />
+                            </div>
+                            <div class="main-search-input-item">
+                                <div class="qty-dropdown fl-wrap">
+                                    <div class="qty-dropdown-header fl-wrap"><i class="fal fa-users"></i> Kişi Sayısı</div>
+                                    <div class="qty-dropdown-content fl-wrap">
+                                        <div class="quantity-item">
+                                            <label><i class="fas fa-male"></i> Yetişkin</label>
+                                            <div class="quantity">
+                                                <input type="number" min="1" max="4" step="1" value="1">
+                                            </div>
+                                        </div>
+                                        <div class="quantity-item">
+                                            <label><i class="fas fa-child"></i> Çocuk</label>
+                                            <div class="quantity">
+                                                <input type="number" min="0" max="4" step="1" value="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="main-search-button color2-bg" onclick="window.location.href='listing.html'">Otel Arayın <i class="fal fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-sec-link">
+                <div class="container"><a href="#sec2" class="custom-scroll-link color-bg"><i class="fal fa-angle-double-down"></i></a></div>
+            </div>
+        </section>
+        <!-- section end -->
+        <!--section -->
+        <section id="sec2">
+            <div class="container">
+                <div class="section-title">
+                    <div class="section-title-separator"><span></span></div>
+                    <h2>Popüler Destinasyonlar</h2>
+                    <span class="section-separator"></span>
+                    <p>İş ortaklarımız ve dostlarımızdan derlediğimiz en iyi şehir ipuçlarını keşfedin.</p>
+                </div>
+            </div>
+            <div class="gallery-items fl-wrap mr-bot spad home-grid">
+                <div class="gallery-item">
+                    <div class="grid-item-holder">
+                        <div class="listing-item-grid">
+                            <div class="listing-counter"><span>79 </span> Otel</div>
+                            <img src="@Url.Content("~/booking/easybook/images/city/Rome.png")" alt="">
+                            <div class="listing-item-cat">
+                                <h3><a href="listing.html">Roma</a></h3>
+                                <div class="weather-grid" data-grcity="Rome"></div>
+                                <div class="clearfix"></div>
+                                <p>Misafirlerimiz için en iyi konfor ve hizmet standartları.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item gallery-item-second">
+                    <div class="grid-item-holder">
+                        <div class="listing-item-grid">
+                            <img src="@Url.Content("~/booking/easybook/images/city/Paris3.png")" alt="">
+                            <div class="listing-counter"><span>43 </span> Otel</div>
+                            <div class="listing-item-cat">
+                                <h3><a href="listing.html">Paris</a></h3>
+                                <div class="weather-grid" data-grcity="Paris"></div>
+                                <div class="clearfix"></div>
+                                <p>Misafirlerimiz için en iyi konfor ve hizmet standartları.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="grid-item-holder">
+                        <div class="listing-item-grid">
+                            <div class="listing-counter"><span>23 </span> Otel</div>
+                            <img src="@Url.Content("~/booking/easybook/images/city/London.png")" alt="">
+                            <div class="listing-item-cat">
+                                <h3><a href="listing.html">Londra</a></h3>
+                                <div class="weather-grid" data-grcity="London"></div>
+                                <div class="clearfix"></div>
+                                <p>Misafirlerimiz için en iyi konfor ve hizmet standartları.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="grid-item-holder">
+                        <div class="listing-item-grid">
+                            <div class="listing-counter"><span>57</span> Otel</div>
+                            <img src="@Url.Content("~/booking/easybook/images/city/Dubai.png")" alt="">
+                            <div class="listing-item-cat">
+                                <h3><a href="listing.html">Dubai</a></h3>
+                                <div class="weather-grid" data-grcity="Dubai"></div>
+                                <div class="clearfix"></div>
+                                <p>Misafirlerimiz için en iyi konfor ve hizmet standartları.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="grid-item-holder">
+                        <div class="listing-item-grid">
+                            <div class="listing-counter"><span>122</span> Otel</div>
+                            <img src="@Url.Content("~/booking/easybook/images/city/NewYork.png")" alt="">
+                            <div class="listing-item-cat">
+                                <h3><a href="listing.html">New York</a></h3>
+                                <div class="weather-grid" data-grcity="New York"></div>
+                                <div class="clearfix"></div>
+                                <p>Misafirlerimiz için en iyi konfor ve hizmet standartları.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="listing.html" class="btn color-bg">Tüm Şehirleri Keşfet <i class="fas fa-caret-right"></i></a>
+        </section>
+        <!-- section end -->
+        <!-- section-->
+        <section class="grey-blue-bg">
+            <div class="container">
+                <div class="section-title">
+                    <div class="section-title-separator"><span></span></div>
+                    <h2>Son Eklenen Oteller</h2>
+                    <span class="section-separator"></span>
+                    <p>Konforlu konaklama deneyimi için özenle seçilmiş en yeni otellerimizi keşfedin. Sizin için en uygun seçenekleri bir araya getirdik.</p>
+                </div>
+            </div>
+            <div class="list-carousel fl-wrap card-listing ">
+                <div class="listing-carousel  fl-wrap ">
+                    <div class="slick-slide-item">
+                        <div class="listing-item">
+                            <article class="geodir-category-listing fl-wrap">
+                                <div class="geodir-category-img">
+                                    <a href="listing-single.html"><img src="https://images.unsplash.com/photo-1623718649591-311775a30c43?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njh8fGhvdGVsfGVufDB8fDB8fHww" alt=""></a>
+
+                                    <div class="sale-window">%20 İndirim</div>
+                                    <div class="geodir-category-opt">
+                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+                                        <div class="rate-class-name">
+                                            <div class="score"><strong>Çok İyi</strong>27 Yorum </div>
+                                            <span>5.0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="geodir-category-content fl-wrap title-sin_item">
+                                    <div class="geodir-category-content-title fl-wrap">
+                                        <div class="geodir-category-content-title-item">
+                                            <h3 class="title-sin_map"><a href="listing-single.html">Premium Plaza Hotel</a></h3>
+                                            <div class="geodir-category-location fl-wrap"><a href="#" class="map-item"><i class="fas fa-map-marker-alt"></i> 27th Brooklyn New York, ABD</a></div>
+                                        </div>
+                                    </div>
+                                    <p>Şehrin kalbinde, lüks ve konforu bir arada sunan eşsiz bir konaklama deneyimi.</p>
+                                    <ul class="facilities-list fl-wrap">
+                                        <li><i class="fal fa-wifi"></i><span>Ücretsiz WiFi</span></li>
+                                        <li><i class="fal fa-parking"></i><span>Otopark</span></li>
+                                        <li><i class="fal fa-smoking-ban"></i><span>Sigara İçilmez</span></li>
+                                        <li><i class="fal fa-utensils"></i><span> Restoran</span></li>
+                                    </ul>
+                                    <div class="geodir-category-footer fl-wrap">
+                                        <div class="geodir-category-price">Gecelik <span>$ 320</span></div>
+                                        <div class="geodir-opt-list">
+                                            <a href="#" class="single-map-item" data-newlatitude="40.72956781" data-newlongitude="-73.99726866"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">Haritada Göster</span></a>
+                                            <a href="#" class="geodir-js-favorite"><i class="fal fa-heart"></i><span class="geodir-opt-tooltip">Kaydet</span></a>
+                                            <a href="#" class="geodir-js-booking"><i class="fal fa-exchange"></i><span class="geodir-opt-tooltip">Yol Tarifi</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="slick-slide-item">
+                        <div class="listing-item">
+                            <article class="geodir-category-listing fl-wrap">
+                                <div class="geodir-category-img">
+                                    <a href="listing-single.html"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWx8ZW58MHx8MHx8fDA%3D" alt=""></a>
+
+                                    <div class="sale-window big-sale">%50 İndirim</div>
+                                    <div class="geodir-category-opt">
+                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="4"></div>
+                                        <div class="rate-class-name">
+                                            <div class="score"><strong>İyi</strong>12 Yorum </div>
+                                            <span>4.2</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="geodir-category-content fl-wrap title-sin_item">
+                                    <div class="geodir-category-content-title fl-wrap">
+                                        <div class="geodir-category-content-title-item">
+                                            <h3 class="title-sin_map"><a href="listing-single.html">Grand Hero Palace</a></h3>
+                                            <div class="geodir-category-location fl-wrap"><a href="#" class="map-item"><i class="fas fa-map-marker-alt"></i> W 85th St, New York, ABD</a></div>
+                                        </div>
+                                    </div>
+                                    <p> Ailenizle birlikte huzurlu bir tatil geçirebileceğiniz, geniş olanaklara sahip harika bir otel.</p>
+                                    <ul class="facilities-list fl-wrap">
+                                        <li><i class="fal fa-wifi"></i><span>Ücretsiz WiFi</span></li>
+                                        <li><i class="fal fa-parking"></i><span>Otopark</span></li>
+                                        <li><i class="fal fa-smoking-ban"></i><span>Sigara İçilmez</span></li>
+                                        <li><i class="fal fa-utensils"></i><span> Restoran</span></li>
+                                    </ul>
+                                    <div class="geodir-category-footer fl-wrap">
+                                        <div class="geodir-opt-link">
+                                            <div class="geodir-category-price">Gecelik <span>$ 120</span></div>
+                                        </div>
+                                        <div class="geodir-opt-list">
+                                            <a href="#" class="single-map-item" data-newlatitude="40.76221766" data-newlongitude="-73.96511769"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">Haritada Göster</span></a>
+                                            <a href="#" class="geodir-js-favorite"><i class="fal fa-heart"></i><span class="geodir-opt-tooltip">Kaydet</span></a>
+                                            <a href="#" class="geodir-js-booking"><i class="fal fa-exchange"></i><span class="geodir-opt-tooltip">Yol Tarifi</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="slick-slide-item">
+                        <div class="listing-item">
+                            <article class="geodir-category-listing fl-wrap">
+                                <div class="geodir-category-img">
+                                    <a href="listing-single.html"><img src="https://plus.unsplash.com/premium_photo-1661879252375-7c1db1932572?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fGhvdGVsfGVufDB8fDB8fHww" alt=""></a>
+
+                                    <div class="sale-window">%20 İndirim</div>
+                                    <div class="geodir-category-opt">
+                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="3"></div>
+                                        <div class="rate-class-name">
+                                            <div class="score"><strong>Hoş</strong>10 Yorum </div>
+                                            <span>3.2</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="geodir-category-content fl-wrap title-sin_item">
+                                    <div class="geodir-category-content-title fl-wrap">
+                                        <div class="geodir-category-content-title-item">
+                                            <h3 class="title-sin_map"><a href="listing-single.html">Holiday Home</a></h3>
+                                            <div class="geodir-category-location fl-wrap"><a href="#" class="map-item"><i class="fas fa-map-marker-alt"></i> 75 Prince St, NY, ABD</a></div>
+                                        </div>
+                                    </div>
+                                    <p> Sıcak atmosferi ve güler yüzlü hizmetiyle kendinizi evinizde hissedeceksiniz.</p>
+                                    <ul class="facilities-list fl-wrap">
+                                        <li><i class="fal fa-wifi"></i><span>Ücretsiz WiFi</span></li>
+                                        <li><i class="fal fa-parking"></i><span>Otopark</span></li>
+                                        <li><i class="fal fa-smoking-ban"></i><span>Sigara İçilmez</span></li>
+                                        <li><i class="fal fa-utensils"></i><span> Restoran</span></li>
+                                    </ul>
+                                    <div class="geodir-category-footer fl-wrap">
+                                        <div class="geodir-opt-link">
+                                            <div class="geodir-category-price">Gecelik <span>$ 50</span></div>
+                                        </div>
+                                        <div class="geodir-opt-list">
+                                            <a href="#" class="single-map-item" data-newlatitude="40.72228267" data-newlongitude="-73.99246214"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">Haritada Göster</span></a>
+                                            <a href="#" class="geodir-js-favorite"><i class="fal fa-heart"></i><span class="geodir-opt-tooltip">Kaydet</span></a>
+                                            <a href="#" class="geodir-js-booking"><i class="fal fa-exchange"></i><span class="geodir-opt-tooltip">Yol Tarifi</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="slick-slide-item">
+                        <div class="listing-item">
+                            <article class="geodir-category-listing fl-wrap">
+                                <div class="geodir-category-img">
+                                    <a href="listing-single.html"><img src="https://images.unsplash.com/photo-1621293954908-907159247fc8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fGhvdGVsfGVufDB8fDB8fHww" alt=""></a>
+
+                                    <div class="sale-window big-sale">%10 İndirim</div>
+                                    <div class="geodir-category-opt">
+                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+                                        <div class="rate-class-name">
+                                            <div class="score"><strong>Çok İyi</strong>102 Yorum </div>
+                                            <span>4.7</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="geodir-category-content fl-wrap title-sin_item">
+                                    <div class="geodir-category-content-title fl-wrap">
+                                        <div class="geodir-category-content-title-item">
+                                            <h3 class="title-sin_map"><a href="listing-single.html">Gold Plaza Hotel</a></h3>
+                                            <div class="geodir-category-location fl-wrap"><a href="#" class="map-item"><i class="fas fa-map-marker-alt"></i> 34-42 Montgomery St , NY, ABD</a></div>
+                                        </div>
+                                    </div>
+                                    <p> Seçkin misafirlerimiz için üst düzey hizmet anlayışı ve zarif detaylar.</p>
+                                    <ul class="facilities-list fl-wrap">
+                                        <li><i class="fal fa-wifi"></i><span>Ücretsiz WiFi</span></li>
+                                        <li><i class="fal fa-parking"></i><span>Otopark</span></li>
+                                        <li><i class="fal fa-smoking-ban"></i><span>Sigara İçilmez</span></li>
+                                        <li><i class="fal fa-utensils"></i><span> Restoran</span></li>
+                                    </ul>
+                                    <div class="geodir-category-footer fl-wrap">
+                                        <div class="geodir-opt-link">
+                                            <div class="geodir-category-price">Gecelik <span>$ 210</span></div>
+                                        </div>
+                                        <div class="geodir-opt-list">
+                                            <a href="#" class="single-map-item" data-newlatitude="40.94982541" data-newlongitude="-73.84357452"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">Haritada Göster</span></a>
+                                            <a href="#" class="geodir-js-favorite"><i class="fal fa-heart"></i><span class="geodir-opt-tooltip">Kaydet</span></a>
+                                            <a href="#" class="geodir-js-booking"><i class="fal fa-exchange"></i><span class="geodir-opt-tooltip">Yol Tarifi</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="slick-slide-item">
+                        <div class="listing-item">
+                            <article class="geodir-category-listing fl-wrap">
+                                <div class="geodir-category-img">
+                                    <a href="listing-single.html"><img src="https://images.unsplash.com/photo-1596436889106-be35e843f974?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fGhvdGVsfGVufDB8fDB8fHww" alt=""></a>
+
+                                    <div class="sale-window big-sale">%70 İndirim</div>
+                                    <div class="geodir-category-opt">
+                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="4"></div>
+                                        <div class="rate-class-name">
+                                            <div class="score"><strong> İyi</strong>8 Yorum </div>
+                                            <span>4.1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="geodir-category-content fl-wrap title-sin_item">
+                                    <div class="geodir-category-content-title fl-wrap">
+                                        <div class="geodir-category-content-title-item">
+                                            <h3 class="title-sin_map"><a href="listing-single.html">Moonlight Hotel</a></h3>
+                                            <div class="geodir-category-location fl-wrap"><a href="#" class="map-item"><i class="fas fa-map-marker-alt"></i> 70 Bright St New York, ABD</a></div>
+                                        </div>
+                                    </div>
+                                    <p> Modern tasarımı ve merkezi konumuyla iş ve tatil seyahatleriniz için ideal.</p>
+                                    <ul class="facilities-list fl-wrap">
+                                        <li><i class="fal fa-wifi"></i><span>Ücretsiz WiFi</span></li>
+                                        <li><i class="fal fa-parking"></i><span>Otopark</span></li>
+                                        <li><i class="fal fa-smoking-ban"></i><span>Sigara İçilmez</span></li>
+                                        <li><i class="fal fa-utensils"></i><span> Restoran</span></li>
+                                    </ul>
+                                    <div class="geodir-category-footer fl-wrap">
+                                        <div class="geodir-opt-link">
+                                            <div class="geodir-category-price">Gecelik <span>$ 105</span></div>
+                                        </div>
+                                        <div class="geodir-opt-list">
+                                            <a href="#" class="single-map-item" data-newlatitude="40.90261483" data-newlongitude="-74.15737152"><i class="fal fa-map-marker-alt"></i><span class="geodir-opt-tooltip">Haritada Göster</span></a>
+                                            <a href="#" class="geodir-js-favorite"><i class="fal fa-heart"></i><span class="geodir-opt-tooltip">Kaydet</span></a>
+                                            <a href="#" class="geodir-js-booking"><i class="fal fa-exchange"></i><span class="geodir-opt-tooltip">Yol Tarifi</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-prev sw-btn"><i class="fa fa-long-arrow-left"></i></div>
+                <div class="swiper-button-next sw-btn"><i class="fa fa-long-arrow-right"></i></div>
+            </div>
+        </section>
+        <!-- section end -->
+        <!--section -->
+        <section class="parallax-section" data-scrollax-parent="true">
+            <div class="bg" data-bg="@Url.Content("~/booking/easybook/images/bg/gemini1.png")" data-scrollax="properties: { translateY: '100px' }"></div>
+            <div class="overlay op7"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="colomn-text fl-wrap pad-top-column-text_small">
+                            <div class="colomn-text-title">
+                                <h3>En Popüler Oteller</h3>
+                                <p>En çok tercih edilen otellerimizi keşfedin. Kalite ve konforun buluştuğu noktada size en uygun seçenekleri sunuyoruz.</p>
+                                <a href="listing.html" class="btn  color2-bg float-btn">Tüm Otelleri Gör<i class="fas fa-caret-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="light-carousel-wrap fl-wrap">
+                            <div class="light-carousel">
+                                <div class="slick-slide-item">
+                                    <div class="hotel-card fl-wrap title-sin_item">
+                                        <div class="geodir-category-img card-post">
+                                            <a href="listing-single.html"><img src="https://images.unsplash.com/photo-1625244724120-1fd1d34d00f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE4fHxob3RlbHxlbnwwfHwwfHx8MA%3D%3D" alt=""></a>
+                                            <div class="listing-counter">Gecelik <strong>$85</strong></div>
+                                            <div class="sale-window">İndirim %20</div>
+                                            <div class="geodir-category-opt">
+                                                <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+                                                <h4 class="title-sin_map"><a href="listing-single.html">Moonlight Otel</a></h4>
+                                                <div class="geodir-category-location"><a href="#" class="single-map-item" data-newlatitude="40.90261483" data-newlongitude="-74.15737152"><i class="fas fa-map-marker-alt"></i> 75 Prince St, NY, ABD</a></div>
+                                                <div class="rate-class-name">
+                                                    <div class="score"><strong> İyi</strong>8 Yorum </div>
+                                                    <span>4.8</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slick-slide-item">
+                                    <div class="hotel-card fl-wrap title-sin_item">
+                                        <div class="geodir-category-img">
+                                            <a href="listing-single.html"><img src="https://plus.unsplash.com/premium_photo-1661876403473-64980cbfdf0f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ4fHxob3RlbHxlbnwwfHwwfHx8MA%3D%3D" alt=""></a>
+                                            <div class="listing-counter">Gecelik <strong>$80</strong></div>
+                                            <div class="sale-window big-sale">Büyük İndirim %50</div>
+                                            <div class="geodir-category-opt">
+                                                <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+                                                <h4 class="title-sin_map"><a href="listing-single.html">Tatil Evi</a></h4>
+                                                <div class="geodir-category-location"><a href="#" class="single-map-item" data-newlatitude="40.72228267" data-newlongitude="-73.99246214"><i class="fas fa-map-marker-alt"></i> 34-42 Montgomery St , NY, ABD</a></div>
+                                                <div class="rate-class-name">
+                                                    <div class="score"><strong> İyi</strong>2 Yorum </div>
+                                                    <span>4.7</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slick-slide-item">
+                                    <div class="hotel-card fl-wrap title-sin_item">
+                                        <div class="geodir-category-img">
+                                            <a href="listing-single.html"><img src="~/booking/easybook/images/gal/1.jpg" alt=""></a>
+                                            <div class="listing-counter">Gecelik <strong>$120</strong></div>
+                                            <div class="sale-window">İndirim %10</div>
+                                            <div class="geodir-category-opt">
+                                                <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+                                                <h4 class="title-sin_map"><a href="listing-single.html">Grand Hero Palace</a></h4>
+                                                <div class="geodir-category-location"><a href="#" class="single-map-item" data-newlatitude="40.76221766" data-newlongitude="-73.96511769"><i class="fas fa-map-marker-alt"></i> 70 Bright St New York, ABD</a></div>
+                                                <div class="rate-class-name">
+                                                    <div class="score"><strong> İyi</strong>31 Yorum </div>
+                                                    <span>4.9</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fc-cont  lc-prev"><i class="fal fa-angle-left"></i></div>
+                            <div class="fc-cont  lc-next"><i class="fal fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- section end -->
+        <!--section -->
+        <section>
+            <div class="container">
+                <div class="section-title">
+                    <div class="section-title-separator"><span></span></div>
+                    <h2>Neden Bizi Seçmelisiniz?</h2>
+                    <span class="section-separator"></span>
+                    <p>Size en iyi deneyimi sunmak için kalite, güven ve konforu bir araya getiriyoruz. Müşteri memnuniyeti bizim önceliğimizdir.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="process-item big-pad-pr-item">
+                            <span class="process-count"> </span>
+                            <div class="time-line-icon"><i class="fal fa-headset"></i></div>
+                            <h4><a href="#"> En İyi Hizmet Garantisi</a></h4>
+                            <p>7/24 destek hattımız ve profesyonel ekibimizle, ihtiyaç duyduğunuz her an yanınızdayız ve en iyi hizmeti garanti ediyoruz.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="process-item big-pad-pr-item">
+                            <span class="process-count"> </span>
+                            <div class="time-line-icon"><i class="fal fa-gift"></i></div>
+                            <h4> <a href="#">Özel Hediyeler</a></h4>
+                            <p>Sadık müşterilerimize ve özel günlerde yaptığınız rezervasyonlara özel sürpriz hediyeler ve ayrıcalıklar sunuyoruz.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="process-item big-pad-pr-item nodecpre">
+                            <span class="process-count"> </span>
+                            <div class="time-line-icon"><i class="fal fa-credit-card"></i></div>
+                            <h4><a href="#"> Kart Avantajları</a></h4>
+                            <p>Ödemelerinizde kredi kartınıza özel taksit imkanları, puan kazanımları ve ekstra indirimlerden faydalanın.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class=" single-facts fl-wrap mar-top">
+                    <div class="inline-facts-wrap">
+                        <div class="inline-facts">
+                            <i class="fal fa-users"></i>
+                            <div class="milestone-counter">
+                                <div class="stats animaper">
+                                    <div class="num" data-content="0" data-num="254">154</div>
+                                </div>
+                            </div>
+                            <h6>Haftalık Yeni Ziyaretçi</h6>
+                        </div>
+                    </div>
+                    <div class="inline-facts-wrap">
+                        <div class="inline-facts">
+                            <i class="fal fa-thumbs-up"></i>
+                            <div class="milestone-counter">
+                                <div class="stats animaper">
+                                    <div class="num" data-content="0" data-num="12168">12168</div>
+                                </div>
+                            </div>
+                            <h6>Yıllık Mutlu Müşteri</h6>
+                        </div>
+                    </div>
+                    <div class="inline-facts-wrap">
+                        <div class="inline-facts">
+                            <i class="fal fa-award"></i>
+                            <div class="milestone-counter">
+                                <div class="stats animaper">
+                                    <div class="num" data-content="0" data-num="172">172</div>
+                                </div>
+                            </div>
+                            <h6>Kazanılan Ödül</h6>
+                        </div>
+                    </div>
+                    <div class="inline-facts-wrap">
+                        <div class="inline-facts">
+                            <i class="fal fa-hotel"></i>
+                            <div class="milestone-counter">
+                                <div class="stats animaper">
+                                    <div class="num" data-content="0" data-num="732">732</div>
+                                </div>
+                            </div>
+                            <h6>Haftalık Yeni İlan</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- section end -->
+        <!--section -->
+        <section class="color-bg hidden-section">
+            <div class="wave-bg wave-bg2"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="colomn-text  pad-top-column-text fl-wrap">
+                            <div class="colomn-text-title">
+                                <h3>Uygulamamız Şimdi Yayında</h3>
+                                <p>Seyahat planlarınızı cebinizden yönetin. Uygulamamız sayesinde otel rezervasyonlarınızı saniyeler içinde yapabilir, size özel mobil indirimlerden faydalanabilirsiniz. Kullanıcı dostu arayüzümüz ve güvenli ödeme seçeneklerimizle tatil keyfiniz şimdiden başlasın.</p>
+                                <a href="#" class=" down-btn color3-bg"><i class="fab fa-apple"></i> iPhone için İndir</a>
+                                <a href="#" class=" down-btn color3-bg"><i class="fab fa-android"></i> Android için İndir</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="collage-image">
+                            <img src="~/booking/easybook/images/api.png" class="main-collage-image" alt="">
+                            <div class="~/booking/easybook/images-collage-title color3-bg">Easy<span>Book</span></div>
+                            <div class="collage-image-min cim_1"><img src="~/booking/easybook/images/api/1.jpg" alt=""></div>
+                            <div class="collage-image-min cim_2"><img src="~/booking/easybook/images/api/1.jpg" alt=""></div>
+                            <div class="collage-image-min cim_3"><img src="~/booking/easybook/images/api/1.jpg" alt=""></div>
+                            <div class="collage-image-input">Ara <i class="fa fa-search"></i></div>
+                            <div class="collage-image-btn color2-bg">Rezervasyon Yap</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- section end -->
+        <!--section -->
+        <section>
+            <div class="container">
+                <div class="section-title">
+                    <div class="section-title-separator"><span></span></div>
+                    <h2>Müşteri Yorumları</h2>
+                    <span class="section-separator"></span>
+                    <p>Misafirlerimizin deneyimleri bizim için çok değerli. İşte bizi tercih edenlerin paylaştığı bazı güzel anlar ve düşünceler.</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="slider-carousel-wrap text-carousel-wrap fl-wrap">
+                <div class="swiper-button-prev sw-btn"><i class="fa fa-long-arrow-left"></i></div>
+                <div class="swiper-button-next sw-btn"><i class="fa fa-long-arrow-right"></i></div>
+                <div class="text-carousel single-carousel fl-wrap">
+                    <div class="slick-item">
+                        <div class="text-carousel-item">
+                            <div class="popup-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=215&h=215" alt=""></div>
+                            <div class="listing-rating card-popup-rainingvis" data-starrating2="5"> </div>
+                            <div class="review-owner fl-wrap">Ayşe Yılmaz  - <span>Mutlu Müşteri</span></div>
+                            <p> "Harika bir tatil deneyimiydi. Otelin konumu ve personelin ilgisi beklentimizin çok üzerindeydi. Odamızın manzarası ve temizliği kusursuzdu. Kesinlikle tekrar geleceğiz."</p>
+                            <a href="#" class="testim-link">Facebook Yorumu</a>
+                        </div>
+                    </div>
+                    <div class="slick-item">
+                        <div class="text-carousel-item">
+                            <div class="popup-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=215&h=215" alt=""></div>
+                            <div class="listing-rating card-popup-rainingvis" data-starrating2="4"> </div>
+                            <div class="review-owner fl-wrap">Mehmet Demir  - <span>Mutlu Müşteri</span></div>
+                            <p> "Rezervasyon süreci inanılmaz kolaydı. Uygulama üzerinden yaptığım işlem saniyeler sürdü. Fiyat/performans açısından bulabileceğiniz en iyi seçeneklerden biri."</p>
+                            <a href="#" class="testim-link">Google Yorumu</a>
+                        </div>
+                    </div>
+                    <div class="slick-item">
+                        <div class="text-carousel-item">
+                            <div class="popup-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=215&h=215" alt=""></div>
+                            <div class="listing-rating card-popup-rainingvis" data-starrating2="5"> </div>
+                            <div class="review-owner fl-wrap">Zeynep Kaya  - <span>Mutlu Müşteri</span></div>
+                            <p> "Ailecek geldik ve çok eğlendik. Çocuklar için aktiviteler harikaydı. Yemekler lezzetli, hizmet hızlı ve güler yüzlüydü. Herkese tavsiye ediyorum."</p>
+                            <a href="#" class="testim-link">Facebook Yorumu</a>
+                        </div>
+                    </div>
+                    <div class="slick-item">
+                        <div class="text-carousel-item">
+                            <div class="popup-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=215&h=215" alt=""></div>
+                            <div class="listing-rating card-popup-rainingvis" data-starrating2="5"> </div>
+                            <div class="review-owner fl-wrap">Caner Öztürk  - <span>Mutlu Müşteri</span></div>
+                            <p> "İş seyahati için tercih ettim. İnternet hızı ve çalışma alanları çok iyiydi. Hem iş hem dinlenme için ideal bir yer. Bir sonraki seyahatimde yine buradayım."</p>
+                            <a href="#" class="testim-link">Twitter Yorumu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- section end-->
+
+    </div>
+    <!-- content end-->
+</div>
