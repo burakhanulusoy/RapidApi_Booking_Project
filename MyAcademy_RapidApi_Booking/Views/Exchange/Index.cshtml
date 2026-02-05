@@ -1,0 +1,199 @@
+﻿@using System.Globalization
+@model List<ExchangeViewModel.Exchange_Rates>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canlı Döviz Piyasası</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .main-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px;
+        }
+
+        .search-input {
+            border-radius: 50px;
+            padding: 12px 20px;
+            border: 2px solid #e1e5ea;
+            transition: all 0.3s;
+        }
+
+            .search-input:focus {
+                border-color: #2a5298;
+                box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+                outline: none;
+            }
+
+        .currency-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #eef2f7;
+            font-weight: bold;
+            color: #2a5298;
+            font-size: 1.2rem;
+        }
+
+        .rate-text {
+            font-family: 'Consolas', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2d3436;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .table td {
+            vertical-align: middle;
+            padding: 15px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="card main-card">
+                    <div class="card-header-custom text-center">
+                        <h2 class="mb-1"><i class="fa-solid fa-coins me-2"></i>Döviz Kurları</h2>
+                        <p class="mb-0 opacity-75">Güncel piyasa verileri (Baz: Türk Lirası)</p>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <div class="mb-4 position-relative">
+                            <i class="fa-solid fa-search position-absolute text-muted" style="top: 18px; left: 20px;"></i>
+                            <input type="text" id="currencySearch" class="form-control search-input ps-5" placeholder="Para birimi ara (Örn: USD, EUR, GBP)..." onkeyup="filterTable()">
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-borderless table-hover" id="ratesTable">
+                                <thead class="text-muted border-bottom">
+                                    <tr>
+                                        <th scope="col" class="ps-3">Para Birimi</th>
+                                        <th scope="col" class="text-end pe-4">Güncel Kur (TL)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="currency-icon me-3 shadow-sm">
+                                                            @if (!string.IsNullOrEmpty(item.currency))
+                                                            {
+                                                                @item.currency.Substring(0, 1)
+                                                            }
+                                                        </div>
+                                                        <div>
+                                                            <div class="fw-bold text-dark">@item.currency</div>
+                                                            <small class="text-muted">Döviz</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="text-end pe-4">
+                                                    @{
+                                                        decimal rate = 0;
+                                                        decimal vatanRate = 0;
+
+                                                        // Hata yönetimi (Try/Catch yerine güvenli parse)
+                                                        if (decimal.TryParse(item.exchange_rate_buy, NumberStyles.Any, CultureInfo.InvariantCulture, out rate))
+                                                        {
+                                                            if (rate != 0)
+                                                            {
+                                                                vatanRate = 1 / rate;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    <span class="rate-text">@vatanRate.ToString("N4", new CultureInfo("tr-TR")) ₺</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="2" class="text-center text-danger py-4">Veri bulunamadı.</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3 text-muted" style="font-size: 0.8rem;">
+                    <i class="fa-solid fa-clock me-1"></i> Veriler anlık olarak RapidAPI üzerinden çekilmektedir.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterTable() {
+            // 1. Girdiyi al
+            var input = document.getElementById("currencySearch");
+            var filter = input.value.toUpperCase();
+
+            // 2. Tabloyu ve satırları bul
+            var table = document.getElementById("ratesTable");
+            var tr = table.getElementsByTagName("tr");
+
+            // 3. Döngü ile kontrol et
+            for (var i = 0; i < tr.length; i++) {
+                // Her satırın ilk hücresini (Para Birimi ismini) al
+                var td = tr[i].getElementsByTagName("td")[0];
+
+                if (td) {
+                    var txtValue = td.textContent || td.innerText;
+
+                    // Eğer aranan kelime içinde varsa göster, yoksa gizle
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
