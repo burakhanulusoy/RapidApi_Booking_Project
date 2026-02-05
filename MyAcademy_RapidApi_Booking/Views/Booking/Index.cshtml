@@ -1,0 +1,90 @@
+﻿@model BookingViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table table-bordered table-striped table-hover">
+
+    <tr>
+        <th>Otle Resim</th>
+        <th>Yıldız</th>
+        <th>RewiewScore</th>
+        <th>Yprum Sayııs</th>
+        <th>Ad</th>
+        <th>Konum0</th>
+        <th>Açıkama</th>
+        <th>Gveleik Fiyatı</th>
+       
+
+
+    </tr>
+
+
+    
+        @foreach(var hotel in Model.data.hotels)
+        {
+            <tr>
+                <th>
+                    <img src="@hotel.property.photoUrls[0]" style="width:100px;height:100px;" />
+                </th>
+                <th>
+                    @for (int i = 0; i < hotel.property.propertyClass; i++)
+                    {
+                        <span>⭐</span>
+                    }
+
+                </th>
+                <th>@hotel.property.reviewScore</th>
+                <th>@hotel.property.reviewCount</th>
+                <th>@hotel.property.name</th>
+            <td>
+                @hotel.property.wishlistName, @hotel.property.countryCode.ToUpper()
+                <br />
+
+                <a href="https://www.google.com/maps/search/?api=1&query=@hotel.property.latitude.ToString(System.Globalization.CultureInfo.InvariantCulture),@hotel.property.longitude.ToString(System.Globalization.CultureInfo.InvariantCulture)" target="_blank" class="btn btn-outline-primary btn-sm">
+                    Haritada Göster
+                </a>
+            </td>
+                <th>@hotel.accessibilityLabel</th>
+                <td>
+                    @{
+                        // 1. Tarihleri alıp gün farkını (gece sayısını) buluyoruz
+                        DateTime giris = DateTime.Parse(hotel.property.checkinDate);
+                        DateTime cikis = DateTime.Parse(hotel.property.checkoutDate);
+                        int geceSayisi = (cikis - giris).Days;
+
+                        // 2. Fiyatı alıyoruz
+                        var fiyat = hotel.property.priceBreakdown.grossPrice.value;
+                        var paraBirimi = hotel.property.priceBreakdown.grossPrice.currency;
+                    }
+
+                    <div style="text-align:center;">
+                        <span class="badge bg-warning text-dark">@geceSayisi Gece</span>
+                        <br />
+                        <span style="font-size: 16px; font-weight: bold; color: #0d6efd;">
+                            @fiyat.ToString("N0") @paraBirimi
+                        </span>
+                        <br />
+                        <small class="text-muted">Toplam Tutar</small>
+                    </div>
+                </td>
+
+
+
+            </tr>
+
+
+        }
+
+
+    
+
+
+
+
+</table>
+
+
+
