@@ -4,68 +4,20 @@
     Layout = "~/Views/WebUI/Index.cshtml";
 }
 
+
+
 <div id="wrapper">
     <!-- content-->
     <div class="content">
         <!--section -->
-        <section class="hero-section" data-scrollax-parent="true" id="sec1">
-            <div class="hero-parallax">
-                <div class="bg" data-bg="@Url.Content("~/booking/easybook/images/bg/3.jpg")" data-scrollax="properties: { translateY: '200px' }"></div>
-                <div class="overlay op7"></div>
-            </div>
-            <div class="hero-section-wrap fl-wrap">
-                <div class="container">
-                    <div class="home-intro">
-                        <div class="section-title-separator"><span></span></div>
-                        <h2>EasyBook Otel Rezervasyon Sistemi</h2>
-                        <span class="section-separator"></span>
-                        <h3>EasyBook ile birlikte dünyayı keşfetmeye başlayalım.</h3>
-                    </div>
-                    <div class="main-search-input-wrap">
-                        <div class="main-search-input fl-wrap">
-                            <div class="main-search-input-item location" id="autocomplete-container">
-                                <span class="inpt_dec"><i class="fal fa-map-marker"></i></span>
-                                <input type="text" placeholder="Ülke , Şehir..." class="autocomplete-input" id="autocompleteid2" value="" />
-                                <a href="#"><i class="fal fa-dot-circle"></i></a>
-                            </div>
-                            <div class="main-search-input-item main-date-parent main-search-input-item_small">
-                                <span class="inpt_dec"><i class="fal fa-calendar-check"></i></span> <input type="text" placeholder="Tarih" name="main-input-search" value="" />
-                            </div>
-                            <div class="main-search-input-item">
-                                <div class="qty-dropdown fl-wrap">
-                                    <div class="qty-dropdown-header fl-wrap"><i class="fal fa-users"></i> Kişi Sayısı</div>
-                                    <div class="qty-dropdown-content fl-wrap">
-                                        <div class="quantity-item">
-                                            <label><i class="fas fa-male"></i> Yetişkin</label>
-                                            <div class="quantity">
-                                                <input type="number" min="1" max="4" step="1" value="1">
-                                            </div>
-                                        </div>
-                                        <div class="quantity-item">
-                                            <label><i class="fas fa-child"></i> Çocuk</label>
-                                            <div class="quantity">
-                                                <input type="number" min="0" max="4" step="1" value="0">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="main-search-button color2-bg" onclick="window.location.href='listing.html'">Otel Arayın <i class="fal fa-search"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="header-sec-link">
-                <div class="container"><a href="#sec2" class="custom-scroll-link color-bg"><i class="fal fa-angle-double-down"></i></a></div>
-            </div>
-        </section>
+        @await Component.InvokeAsync("_DefaultReservationSystemComponent")
         <!-- section end -->
         <!--section -->
         <section id="sec2">
             <div class="container">
                 <div class="section-title">
                     <div class="section-title-separator"><span></span></div>
-                    <h2>Popüler Destinasyonlar</h2>
+                    <h2>Popüler Şehirler</h2>
                     <span class="section-separator"></span>
                     <p>İş ortaklarımız ve dostlarımızdan derlediğimiz en iyi şehir ipuçlarını keşfedin.</p>
                 </div>

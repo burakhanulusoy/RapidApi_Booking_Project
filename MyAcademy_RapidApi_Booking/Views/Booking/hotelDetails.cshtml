@@ -1,0 +1,500 @@
+﻿@model MyAcademy_RapidApi_Booking.Models.GetHotelDetailViewModel.Data
+@{
+    ViewData["Title"] = "Otel Detayları";
+    Layout = "~/Views/WebUI/Index.cshtml";
+
+    // --- GÖRÜNTÜ İYİLEŞTİRME VE VERİ HAZIRLIĞI ---
+
+    // 1. Odayı bul
+    var firstRoom = Model.rooms?.Values.FirstOrDefault();
+
+    // 2. Resim Listesi Oluşturma (HD Zorlamalı)
+    List<string> photoList = new List<string>();
+
+    // A. Odadan gelen orijinal fotoları al (En kaliteli kaynak burasıdır)
+    if (firstRoom?.photos != null)
+    {
+        foreach (var photo in firstRoom.photos.Take(10))
+        {
+            // Eğer url_original varsa onu al, yoksa max1280 al
+            string url = !string.IsNullOrEmpty(photo.url_original) ? photo.url_original : photo.url_max1280;
+            photoList.Add(url);
+        }
+    }
+
+    // B. Eğer odadan resim gelmediyse veya az geldiyse RawData'dan tamamla
+    if (Model.rawData?.photoUrls != null)
+    {
+        foreach (var url in Model.rawData.photoUrls)
+        {
+            // BURASI ÖNEMLİ: Linkin içindeki "square60" (küçük) yazısını "max1280" (büyük) yapıyoruz.
+            string hdUrl = url.Replace("square60", "max1280")
+                              .Replace("square180", "max1280")
+                              .Replace("max300", "max1280")
+                              .Replace("max500", "max1280");
+
+            // Eğer liste zaten bu resmi içermiyorsa ekle
+            if (!photoList.Contains(hdUrl))
+            {
+                photoList.Add(hdUrl);
+            }
+        }
+    }
+
+    // C. Eğer hala 6 resimden az varsa, senin istediğin Unsplash görseli ile tamamla
+    string fallbackImage = "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500&auto=format&fit=crop&q=60";
+    while (photoList.Count < 6)
+    {
+        photoList.Add(fallbackImage);
+    }
+
+    // 3. Ana Arkaplan Resmi (Listenin ilk elemanı - Artık HD)
+    string mainBgImage = photoList[0];
+
+    // 4. Puanlama ve Diğer Bilgiler
+    int starRating = (Model.rawData != null) ? Model.rawData.propertyClass : 5;
+    string scoreWord = (Model.rawData != null && !string.IsNullOrEmpty(Model.rawData.reviewScoreWord)) ? Model.rawData.reviewScoreWord : "Mükemmel";
+    float reviewScore = (Model.rawData != null) ? Model.rawData.reviewScore : 9.5f;
+    int reviewCount = (Model.rawData != null) ? Model.rawData.reviewCount : 124;
+
+    // 5. Fiyat Bilgisi
+    string priceInfo = "Fiyat Alınız";
+    if (Model.product_price_breakdown?.gross_amount_per_night != null)
+    {
+        priceInfo = Math.Round(Model.product_price_breakdown.gross_amount_per_night.value, 0) + " " + Model.product_price_breakdown.gross_amount_per_night.currency;
+    }
+}
+
+<div id="wrapper">
+    <div class="content">
+        <section class="list-single-hero" data-scrollax-parent="true" id="sec1">
+            <div class="bg par-elem " data-bg="@mainBgImage" data-scrollax="properties: { translateY: '30%' }"></div>
+
+            <div class="list-single-hero-title fl-wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="listing-rating-wrap">
+                                <div class="listing-rating card-popup-rainingvis" data-starrating2="@starRating"></div>
+                            </div>
+                            <h2><span>@Model.hotel_name</span></h2>
+                            <div class="list-single-header-contacts fl-wrap">
+                                <ul>
+                                    <li><i class="far fa-phone"></i><a href="#">+90 (212) 555 1234</a></li>
+                                    <li><i class="far fa-map-marker-alt"></i><a href="#">@Model.address, @Model.city</a></li>
+                                    <li><i class="far fa-envelope"></i><a href="#">info@easybook.com</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="list-single-hero-details fl-wrap">
+                                <div class="list-single-hero-rating">
+                                    <div class="rate-class-name">
+                                        <div class="score"><strong>@scoreWord</strong>@reviewCount Değerlendirme </div>
+                                        <span>@reviewScore</span>
+                                    </div>
+                                    <div class="list-single-hero-rating-list">
+                                        <div class="rate-item fl-wrap">
+                                            <div class="rate-item-title fl-wrap"><span>Temizlik</span></div>
+                                            <div class="rate-item-bg" data-percent="100%">
+                                                <div class="rate-item-line color-bg"></div>
+                                            </div>
+                                            <div class="rate-item-percent">5.0</div>
+                                        </div>
+                                        <div class="rate-item fl-wrap">
+                                            <div class="rate-item-title fl-wrap"><span>Konfor</span></div>
+                                            <div class="rate-item-bg" data-percent="90%">
+                                                <div class="rate-item-line color-bg"></div>
+                                            </div>
+                                            <div class="rate-item-percent">4.8</div>
+                                        </div>
+                                        <div class="rate-item fl-wrap">
+                                            <div class="rate-item-title fl-wrap"><span>Konum</span></div>
+                                            <div class="rate-item-bg" data-percent="95%">
+                                                <div class="rate-item-line color-bg"></div>
+                                            </div>
+                                            <div class="rate-item-percent">4.9</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="list-single-hero-links">
+                                    <a class="lisd-link" href="#sec4"><i class="fal fa-bookmark"></i> Rezervasyon Yap</a>
+                                    <a class="custom-scroll-link lisd-link" href="#sec6"><i class="fal fa-comment-alt-check"></i> Yorum Yaz</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="breadcrumbs-hero-buttom fl-wrap">
+                        <div class="breadcrumbs"><a href="#">Anasayfa</a><a href="#">Oteller</a><span>@Model.city</span></div>
+                        <div class="list-single-hero-price">Gecelik <span>@priceInfo</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="grey-blue-bg small-padding scroll-nav-container" id="sec2">
+            <div class="scroll-nav-wrapper fl-wrap">
+                <div class="hidden-map-container fl-wrap">
+                    <input id="pac-input" class="controls fl-wrap controls-mapwn" type="text" placeholder="Yakında ne var? Restoran, Müze...">
+                    <div class="map-container">
+                        <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="container">
+                    <nav class="scroll-nav scroll-init">
+                        <ul>
+                            <li><a class="act-scrlink" href="#sec1">Üst</a></li>
+                            <li><a href="#sec2">Detaylar</a></li>
+                            <li><a href="#sec3">Özellikler</a></li>
+                            <li><a href="#sec4">Odalar</a></li>
+                            <li><a href="#sec5">Yorumlar</a></li>
+                        </ul>
+                    </nav>
+                    <a href="#" class="show-hidden-map">  <span>Haritada Gör</span> <i class="fal fa-map-marked-alt"></i></a>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="list-single-main-container ">
+                            <div class="fixed-scroll-column">
+                                <div class="fixed-scroll-column-item fl-wrap">
+                                    <div class="showshare sfcs fc-button"><i class="far fa-share-alt"></i><span>Paylaş </span></div>
+                                    <div class="share-holder fixed-scroll-column-share-container">
+                                        <div class="share-container  isShare"></div>
+                                    </div>
+                                    <a class="fc-button custom-scroll-link" href="#sec6"><i class="far fa-comment-alt-check"></i> <span>  Yorum Yaz </span></a>
+                                    <a class="fc-button" href="#"><i class="far fa-heart"></i> <span>Kaydet</span></a>
+                                    <a class="fc-button" href="#sec4"><i class="far fa-bookmark"></i> <span> Rezervasyon </span></a>
+                                </div>
+                            </div>
+                            <div class="list-single-main-media fl-wrap">
+                                <div class="gallery-items grid-small-pad  list-single-gallery three-coulms lightgallery">
+
+                                    <div class="gallery-item ">
+                                        <div class="grid-item-holder">
+                                            <div class="box-item">
+                                                <img src="@photoList[0]" alt="">
+                                                <a href="@photoList[0]" class="gal-link popup-image"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gallery-item">
+                                        <div class="grid-item-holder">
+                                            <div class="box-item">
+                                                <img src="@photoList[1]" alt="">
+                                                <a href="@photoList[1]" class="gal-link popup-image"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gallery-item gallery-item-second">
+                                        <div class="grid-item-holder">
+                                            <div class="box-item">
+                                                <img src="@photoList[2]" alt="">
+                                                <a href="@photoList[2]" class="gal-link popup-image"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gallery-item">
+                                        <div class="grid-item-holder">
+                                            <div class="box-item">
+                                                <img src="@photoList[3]" alt="">
+                                                <a href="@photoList[3]" class="gal-link popup-image"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gallery-item">
+                                        <div class="grid-item-holder">
+                                            <div class="box-item">
+                                                <img src="@photoList[4]" alt="">
+                                                <a href="@photoList[4]" class="gal-link popup-image"><i class="fa fa-search"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gallery-item">
+                                        <div class="grid-item-holder">
+                                            <div class="box-item">
+                                                <img src="@photoList[5]" alt="">
+                                                <div class="more-photos-button dynamic-gal" data-dynamicPath="[{'src': '@photoList[5]'}]">
+                                                    Diğer <span>Resimler</span><i class="far fa-long-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="list-single-facts fl-wrap">
+                                <div class="inline-facts-wrap">
+                                    <div class="inline-facts">
+                                        <i class="fal fa-bed"></i>
+                                        <div class="milestone-counter">
+                                            <div class="stats animaper">@Model.available_rooms</div>
+                                        </div>
+                                        <h6>Müsait Oda</h6>
+                                    </div>
+                                </div>
+                                <div class="inline-facts-wrap">
+                                    <div class="inline-facts">
+                                        <i class="fal fa-taxi"></i>
+                                        <div class="milestone-counter">
+                                            <div class="stats animaper">1.5</div>
+                                        </div>
+                                        <h6>Merkeze (km)</h6>
+                                    </div>
+                                </div>
+                                <div class="inline-facts-wrap">
+                                    <div class="inline-facts">
+                                        <i class="fal fa-cocktail"></i>
+                                        <div class="milestone-counter">
+                                            <div class="stats animaper">2</div>
+                                        </div>
+                                        <h6>Restoran</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="list-single-main-item fl-wrap">
+                                <div class="list-single-main-item-title fl-wrap">
+                                    <h3>Otel Hakkında</h3>
+                                </div>
+                                <p>@(firstRoom?.description ?? "Bu tesis konforlu konaklama imkanı sunmaktadır. Şehrin kalbinde, tüm turistik noktalara yakın, harika bir deneyim için sizi bekliyor.")</p>
+                            </div>
+
+                            <div class="list-single-main-item fl-wrap" id="sec3">
+                                <div class="list-single-main-item-title fl-wrap">
+                                    <h3>Olanaklar</h3>
+                                </div>
+                                <div class="listing-features fl-wrap">
+                                    <ul>
+                                        <li><i class="fal fa-rocket"></i> Asansör</li>
+                                        <li><i class="fal fa-wifi"></i> Ücretsiz Wi-Fi</li>
+                                        <li><i class="fal fa-parking"></i> Otopark</li>
+                                        <li><i class="fal fa-snowflake"></i> Klima</li>
+                                        <li><i class="fal fa-plane"></i> Havaalanı Servisi</li>
+                                        <li><i class="fal fa-utensils"></i> Restoran</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="list-single-main-item fl-wrap" id="sec4">
+                                <div class="list-single-main-item-title fl-wrap">
+                                    <h3>Müsait Odalar</h3>
+                                </div>
+                                <div class="rooms-container fl-wrap">
+                                    @if (Model.block != null)
+                                    {
+                                        foreach (var room in Model.block)
+                                        {
+                                            <div class="rooms-item fl-wrap">
+                                                <div class="rooms-media">
+                                                    <img src="@mainBgImage" alt="">
+                                                </div>
+                                                <div class="rooms-details">
+                                                    <div class="rooms-details-header fl-wrap">
+                                                        <span class="rooms-price">@priceInfo</span>
+                                                        <h3>@room.room_name</h3>
+                                                        <h5>Kapasite: <span>@room.nr_adults Yetişkin</span></h5>
+                                                    </div>
+                                                    <p>Konforlu yataklar, modern banyo ve şehir manzarası.</p>
+                                                    <div class="facilities-list fl-wrap">
+                                                        <ul>
+                                                            <li><i class="fal fa-wifi"></i><span>Wifi</span></li>
+                                                            <li><i class="fal fa-parking"></i><span>Otopark</span></li>
+                                                            <li><i class="fas fa-concierge-bell"></i><span>Oda Servisi</span></li>
+                                                        </ul>
+                                                        <a href="#" class="btn color-bg ajax-link">Seç <i class="fas fa-caret-right"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="list-single-main-item fl-wrap" id="sec5">
+                                <div class="list-single-main-item-title fl-wrap">
+                                    <h3>Misafir Yorumları</h3>
+                                </div>
+                                <div class="reviews-score-wrap fl-wrap">
+                                    <div class="review-score-total">
+                                        <span>@reviewScore <strong>@scoreWord</strong></span>
+                                        <a href="#" class="color2-bg">Yorum Ekle</a>
+                                    </div>
+                                    <div class="review-score-detail">
+                                        <div class="review-score-detail-list">
+                                            <div class="rate-item fl-wrap">
+                                                <div class="rate-item-title fl-wrap"><span>Temizlik</span></div>
+                                                <div class="rate-item-bg" data-percent="100%"><div class="rate-item-line color-bg"></div></div>
+                                                <div class="rate-item-percent">5.0</div>
+                                            </div>
+                                            <div class="rate-item fl-wrap">
+                                                <div class="rate-item-title fl-wrap"><span>Konfor</span></div>
+                                                <div class="rate-item-bg" data-percent="90%"><div class="rate-item-line color-bg"></div></div>
+                                                <div class="rate-item-percent">4.8</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="reviews-comments-wrap">
+                                    <div class="reviews-comments-item">
+                                        <div class="review-comments-avatar">
+                                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHdvbWFufGVufDB8fDB8fHww" alt="">
+                                        </div>
+                                        <div class="reviews-comments-item-text">
+                                            <h4><a href="#">Ayşe Yılmaz</a></h4>
+                                            <div class="review-score-user">
+                                                <span>5.0</span>
+                                                <strong>Harika</strong>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <p>"Otelin konumu mükemmeldi, çalışanlar çok güler yüzlüydü. Odamız tertemizdi ve kahvaltı çok çeşitliydi. Kesinlikle tekrar geleceğiz."</p>
+                                            <div class="reviews-comments-item-date"><span><i class="far fa-calendar-check"></i>12 Ocak 2024</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="reviews-comments-item">
+                                        <div class="review-comments-avatar">
+                                            <img src="https://plus.unsplash.com/premium_photo-1689977927774-401b12d137d6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bWFufGVufDB8fDB8fHww" alt="">
+                                        </div>
+                                        <div class="reviews-comments-item-text">
+                                            <h4><a href="#">Mehmet Demir</a></h4>
+                                            <div class="review-score-user">
+                                                <span>4.0</span>
+                                                <strong>Çok İyi</strong>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <p>"Fiyat performans olarak çok başarılı. Ulaşım çok kolaydı. Sadece internet biraz yavaştı ama genel olarak memnun kaldık."</p>
+                                            <div class="reviews-comments-item-date"><span><i class="far fa-calendar-check"></i>05 Şubat 2024</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="list-single-main-item fl-wrap" id="sec6">
+                                <div class="list-single-main-item-title fl-wrap">
+                                    <h3>Yorum Yap</h3>
+                                </div>
+                                <div id="add-review" class="add-review-box">
+                                    <form id="add-comment" class="add-comment custom-form">
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label><i class="fal fa-user"></i></label>
+                                                    <input type="text" placeholder="Adınız *" value="" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label><i class="fal fa-envelope"></i> </label>
+                                                    <input type="text" placeholder="Email Adresi*" value="" />
+                                                </div>
+                                            </div>
+                                            <textarea cols="40" rows="3" placeholder="Yorumunuz:"></textarea>
+                                        </fieldset>
+                                        <button class="btn big-btn flat-btn float-btn color2-bg" style="margin-top:30px">Gönder <i class="fal fa-paper-plane"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box-widget-wrap">
+                            <div class="box-widget-item fl-wrap">
+                                <div class="box-widget">
+                                    <div class="box-widget-content">
+                                        <div class="box-widget-item-header">
+                                            <h3> Rezervasyon Yap</h3>
+                                        </div>
+                                        <form name="bookFormCalc" class="book-form custom-form">
+                                            <fieldset>
+                                                <div class="cal-item">
+                                                    <div class="listsearch-input-item">
+                                                        <label>Oda Tipi</label>
+                                                        <select data-placeholder="Oda Tipi" name="repopt" class="chosen-select no-search-select">
+                                                            <option value="0" selected>Oda Seçiniz</option>
+                                                            <option value="1">Standart Oda</option>
+                                                            <option value="2">Deluxe Oda</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="cal-item">
+                                                    <div class="bookdate-container fl-wrap">
+                                                        <label><i class="fal fa-calendar-check"></i> Tarih </label>
+                                                        <input type="text" placeholder="Giriş - Çıkış" name="bookdates" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="cal-item">
+                                                    <div class="quantity-item fl-wrap">
+                                                        <label> Yetişkin</label>
+                                                        <div class="quantity">
+                                                            <input type="number" name="qty3" min="1" max="5" step="1" value="1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="quantity-item fl-wrap fcit">
+                                                        <label> Çocuk</label>
+                                                        <div class="quantity">
+                                                            <input type="number" name="qty2" min="0" max="3" step="1" value="0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <button class="btnaplly color2-bg">Rezervasyonu Tamamla<i class="fal fa-paper-plane"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="box-widget-item fl-wrap">
+                                <div class="box-widget widget-posts">
+                                    <div class="box-widget-content">
+                                        <div class="box-widget-item-header">
+                                            <h3>Benzer İlanlar</h3>
+                                        </div>
+                                        <div class="widget-posts fl-wrap">
+                                            <ul>
+                                                <li class="clearfix">
+                                                    <a href="#" class="widget-posts-img"><img src="@fallbackImage" class="respimg" alt=""></a>
+                                                    <div class="widget-posts-descr">
+                                                        <a href="#" title="">Grand Hotel Paris</a>
+                                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> Paris Merkez</a></div>
+                                                        <span class="rooms-price">3500 TL <strong> / Gece</strong></span>
+                                                    </div>
+                                                </li>
+                                                <li class="clearfix">
+                                                    <a href="#" class="widget-posts-img"><img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90ZWx8ZW58MHx8MHx8fDA%3D" class="respimg" alt=""></a>
+                                                    <div class="widget-posts-descr">
+                                                        <a href="#" title="">City View Suites</a>
+                                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="4"></div>
+                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> Taksim, İstanbul</a></div>
+                                                        <span class="rooms-price">2800 TL <strong> / Gece</strong></span>
+                                                    </div>
+                                                </li>
+                                                <li class="clearfix">
+                                                    <a href="#" class="widget-posts-img"><img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGhvdGVsfGVufDB8fDB8fHww" class="respimg" alt=""></a>
+                                                    <div class="widget-posts-descr">
+                                                        <a href="#" title="">Luxury Spa Resort</a>
+                                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="5"></div>
+                                                        <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i> Beşiktaş, İstanbul</a></div>
+                                                        <span class="rooms-price">5000 TL <strong> / Gece</strong></span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <a class="widget-posts-link" href="#">Tümünü Gör <i class="fal fa-long-arrow-right"></i> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="limit-box fl-wrap"></div>
+</div>

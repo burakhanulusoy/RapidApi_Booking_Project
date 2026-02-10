@@ -1,0 +1,114 @@
+﻿<section class="hero-section" data-scrollax-parent="true" id="sec1">
+    <div class="hero-parallax">
+        <div class="bg" data-bg="images/bg/1.jpg" data-scrollax="properties: { translateY: '200px' }"></div>
+        <div class="overlay op7"></div>
+    </div>
+    <div class="hero-section-wrap fl-wrap">
+        <div class="container">
+            <div class="home-intro">
+                <div class="section-title-separator"><span></span></div>
+                <h2>EasyBook Hotel Booking System</h2>
+                <span class="section-separator"></span>
+                <h3>Keşfetmeye Hazır Mısın?</h3>
+            </div>
+
+            <form asp-controller="Booking" asp-action="Index" method="get">
+
+                <div class="main-search-input-wrap">
+                    <div class="main-search-input fl-wrap">
+
+                        <div class="main-search-input-item location">
+                            <span class="inpt_dec"><i class="fal fa-map-marker"></i></span>
+                            <input type="text" placeholder="Otel veya Şehir..." name="city" class="custom-search-input" id="citySearchInput" value="" autocomplete="off" />
+                            <a href="#"><i class="fal fa-dot-circle"></i></a>
+                        </div>
+
+                        <div class="main-search-input-item main-date-parent main-search-input-item_small">
+                            <span class="inpt_dec"><i class="fal fa-calendar-check"></i></span>
+                            <input type="text" placeholder="Giriş - Çıkış Tarihi" name="main-input-search" id="date-range-picker" value="" readonly />
+
+                            <input type="hidden" name="arrivalDate" id="arrivalDate" />
+                            <input type="hidden" name="departureDate" id="departureDate" />
+                        </div>
+
+                        <div class="main-search-input-item">
+                            <div class="qty-dropdown fl-wrap">
+                                <div class="qty-dropdown-header fl-wrap"><i class="fal fa-users"></i> Kişi Sayısı</div>
+                                <div class="qty-dropdown-content fl-wrap">
+                                    <div class="quantity-item">
+                                        <label><i class="fas fa-male"></i> Yetişkin</label>
+                                        <div class="quantity">
+                                            <input type="number" name="adults" min="1" max="10" step="1" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="quantity-item">
+                                        <label><i class="fas fa-child"></i> Çocuk</label>
+                                        <div class="quantity">
+                                            <input type="number" min="0" max="3" step="1" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="main-search-button color2-bg">Ara <i class="fal fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="header-sec-link">
+        <div class="container"><a href="#sec2" class="custom-scroll-link color-bg"><i class="fal fa-angle-double-down"></i></a></div>
+    </div>
+</section>
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        // Date Range Picker'ı Türkçe formatıyla manuel başlatıyoruz
+        $('#date-range-picker').daterangepicker({
+            autoUpdateInput: false, // Otomatik doldurmayı kapat, biz yöneteceğiz
+            locale: {
+                format: 'DD/MM/YYYY', // GÖRÜNEN FORMAT (Gün/Ay/Yıl)
+                applyLabel: "Uygula",
+                cancelLabel: "Temizle",
+                fromLabel: "Başlangıç",
+                toLabel: "Bitiş",
+                customRangeLabel: "Özel",
+                weekLabel: "H",
+                daysOfWeek: ["Pz", "Pt", "Sa", "Ça", "Pe", "Cu", "Ct"],
+                monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                firstDay: 1
+            },
+            minDate: new Date() // Geçmiş tarih seçilemesin
+        });
+
+        // Tarih seçilip "Uygula"ya basıldığında çalışır
+        $('#date-range-picker').on('apply.daterangepicker', function(ev, picker) {
+
+            // 1. GÖRÜNEN INPUTU GÜNCELLE (Gün/Ay/Yıl - Gün/Ay/Yıl)
+            $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+
+            // 2. GİZLİ INPUTLARI GÜNCELLE (Yıl-Ay-Gün -> API FORMATI)
+            // RapidAPI ve C# DateTime genelde yyyy-MM-dd ister.
+            $('#arrivalDate').val(picker.startDate.format('YYYY-MM-DD'));
+            $('#departureDate').val(picker.endDate.format('YYYY-MM-DD'));
+
+            console.log("Giden Veri -> Giriş: " + $('#arrivalDate').val() + " Çıkış: " + $('#departureDate').val());
+        });
+
+        // Temizle butonuna basılırsa
+        $('#date-range-picker').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+            $('#arrivalDate').val('');
+            $('#departureDate').val('');
+        });
+    });
+</script>
+
+
+
+
