@@ -10,72 +10,219 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Canlı Döviz Piyasası</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        :root {
+            --primary-bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --accent-blue: #2563eb;
+            --accent-light: #eff6ff;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
         body {
-            background-color: #f0f2f5;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         .main-card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-lg);
             overflow: hidden;
+            transition: transform 0.3s ease;
         }
 
+        /* Başlık Alanı */
         .card-header-custom {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 25px;
+            background: #fff;
+            padding: 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #10b981; /* Yeşil */
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse-green 2s infinite;
+            margin-right: 8px;
+        }
+
+        @@keyframes pulse-green {
+            0%
+
+        {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+        }
+
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+        }
+
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+        }
+
+        }
+
+        /* Arama Kutusu */
+        .search-container {
+            position: relative;
         }
 
         .search-input {
-            border-radius: 50px;
-            padding: 12px 20px;
-            border: 2px solid #e1e5ea;
-            transition: all 0.3s;
+            border-radius: 12px;
+            padding: 15px 15px 15px 50px;
+            border: 1px solid var(--border-color);
+            background-color: #f9fafb;
+            font-size: 0.95rem;
+            transition: all 0.2s;
         }
 
             .search-input:focus {
-                border-color: #2a5298;
-                box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+                background-color: #fff;
+                border-color: var(--accent-blue);
+                box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
                 outline: none;
             }
 
-        .currency-icon {
-            width: 45px;
-            height: 45px;
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Tablo Stili */
+        .table {
+            margin-bottom: 0;
+        }
+
+            .table thead th {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: var(--text-muted);
+                font-weight: 600;
+                padding-bottom: 15px;
+                border-bottom: 2px solid var(--border-color);
+            }
+
+            .table td {
+                padding: 20px 15px;
+                vertical-align: middle;
+                border-bottom: 1px solid var(--border-color);
+                transition: background 0.2s;
+            }
+
+        .table-hover tbody tr:hover td {
+            background-color: var(--accent-light);
+            cursor: default;
+        }
+
+        /* Bayrak ve İkon */
+        .currency-flag-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            background-color: #eef2f7;
-            font-weight: bold;
-            color: #2a5298;
-            font-size: 1.2rem;
+            overflow: hidden;
+            position: relative;
         }
 
-        .rate-text {
-            font-family: 'Consolas', monospace;
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #2d3436;
+            .currency-flag-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .currency-flag-wrapper span {
+                font-weight: 700;
+                color: var(--accent-blue);
+                font-size: 1.2rem;
+            }
+
+        /* Fiyat Metni */
+        .rate-value {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+            position: relative;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
         }
 
-        .table-hover tbody tr:hover {
-            background-color: #f8f9fa;
-            transform: translateY(-2px);
-            transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            .rate-value:hover {
+                background-color: rgba(37, 99, 235, 0.1);
+                color: var(--accent-blue);
+            }
+
+            .rate-value:active {
+                transform: scale(0.95);
+            }
+
+        /* Tooltip benzeri kopyalandı mesajı */
+        .copy-feedback {
+            position: absolute;
+            top: -25px;
+            right: 0;
+            background: #111827;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
         }
 
-        .table td {
-            vertical-align: middle;
-            padding: 15px;
-            border-bottom: 1px solid #f1f1f1;
+        .rate-value.copied .copy-feedback {
+            opacity: 1;
+        }
+
+        /* Scrollbar */
+        .table-responsive::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -83,26 +230,33 @@
 
     <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-7 col-xl-6">
+
+                <div class="d-flex justify-content-between align-items-end mb-3 px-2">
+                    <div>
+                        <h5 class="fw-bold mb-0 text-dark">Piyasa Takibi</h5>
+                        <small class="text-muted" id="currentDate"></small>
+                    </div>
+                    <div class="badge bg-white text-dark border shadow-sm py-2 px-3 rounded-pill">
+                        <span class="live-indicator"></span> Piyasa Açık
+                    </div>
+                </div>
 
                 <div class="card main-card">
-                    <div class="card-header-custom text-center">
-                        <h2 class="mb-1"><i class="fa-solid fa-coins me-2"></i>Döviz Kurları</h2>
-                        <p class="mb-0 opacity-75">Güncel piyasa verileri (Baz: Türk Lirası)</p>
+                    <div class="card-header-custom">
+                        <div class="search-container">
+                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            <input type="text" id="currencySearch" class="form-control search-input" placeholder="Para birimi ara (USD, EUR, GBP)..." onkeyup="filterTable()">
+                        </div>
                     </div>
 
-                    <div class="card-body p-4">
-                        <div class="mb-4 position-relative">
-                            <i class="fa-solid fa-search position-absolute text-muted" style="top: 18px; left: 20px;"></i>
-                            <input type="text" id="currencySearch" class="form-control search-input ps-5" placeholder="Para birimi ara (Örn: USD, EUR, GBP)..." onkeyup="filterTable()">
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-borderless table-hover" id="ratesTable">
-                                <thead class="text-muted border-bottom">
+                    <div class="card-body p-0">
+                        <div class="table-responsive" style="max-height: 600px;">
+                            <table class="table table-hover" id="ratesTable">
+                                <thead class="bg-light sticky-top">
                                     <tr>
-                                        <th scope="col" class="ps-3">Para Birimi</th>
-                                        <th scope="col" class="text-end pe-4">Güncel Kur (TL)</th>
+                                        <th scope="col" class="ps-4">Para Birimi</th>
+                                        <th scope="col" class="text-end pe-4">Kur (TRY)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -110,38 +264,45 @@
                                     {
                                         foreach (var item in Model)
                                         {
+                                            // Bayrak kodu oluşturma (Örn: USD -> us, EUR -> eu)
+                                            string currencyCode = item.currency?.ToLower() ?? "";
+                                            string flagCode = currencyCode.Length >= 2 ? currencyCode.Substring(0, 2) : "xx";
+
+                                            // EUR istisnası (flagcdn'de 'eu' Avrupa Birliği'dir)
+                                            if (flagCode == "eu") { flagCode = "eu"; }
+
                                             <tr>
-                                                <td>
+                                                <td class="ps-4">
                                                     <div class="d-flex align-items-center">
-                                                        <div class="currency-icon me-3 shadow-sm">
-                                                            @if (!string.IsNullOrEmpty(item.currency))
-                                                            {
-                                                                @item.currency.Substring(0, 1)
-                                                            }
+                                                        <div class="currency-flag-wrapper me-3">
+                                                            <img src="https://flagcdn.com/w80/@(flagCode).png"
+                                                                 alt="@item.currency"
+                                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                                                                 loading="lazy">
+                                                            <span style="display:none;">@item.currency?.Substring(0, 1)</span>
                                                         </div>
                                                         <div>
                                                             <div class="fw-bold text-dark">@item.currency</div>
-                                                            <small class="text-muted">Döviz</small>
+                                                            <small class="text-muted" style="font-size:0.8rem">Döviz Kuru</small>
                                                         </div>
                                                     </div>
                                                 </td>
 
                                                 <td class="text-end pe-4">
                                                     @{
-                                                        decimal rate = 0;
                                                         decimal vatanRate = 0;
-
-                                                        // Hata yönetimi (Try/Catch yerine güvenli parse)
-                                                        if (decimal.TryParse(item.exchange_rate_buy, NumberStyles.Any, CultureInfo.InvariantCulture, out rate))
+                                                        if (decimal.TryParse(item.exchange_rate_buy, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal rate) && rate != 0)
                                                         {
-                                                            if (rate != 0)
-                                                            {
-                                                                vatanRate = 1 / rate;
-                                                            }
+                                                            vatanRate = 1 / rate;
                                                         }
                                                     }
 
-                                                    <span class="rate-text">@vatanRate.ToString("N4", new CultureInfo("tr-TR")) ₺</span>
+                                                    <div class="d-flex justify-content-end align-items-center">
+                                                        <span class="rate-value" onclick="copyToClipboard(this, '@vatanRate.ToString("N4", new CultureInfo("tr-TR"))')">
+                                                            @vatanRate.ToString("N4", new CultureInfo("tr-TR")) ₺
+                                                            <span class="copy-feedback">Kopyalandı!</span>
+                                                        </span>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         }
@@ -149,17 +310,24 @@
                                     else
                                     {
                                         <tr>
-                                            <td colspan="2" class="text-center text-danger py-4">Veri bulunamadı.</td>
+                                            <td colspan="2" class="text-center py-5">
+                                                <div class="text-muted">
+                                                    <i class="fa-solid fa-triangle-exclamation fa-2x mb-3"></i>
+                                                    <p>Veri akışı sağlanamadı.</p>
+                                                </div>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
 
-                <div class="text-center mt-3 text-muted" style="font-size: 0.8rem;">
-                    <i class="fa-solid fa-clock me-1"></i> Veriler anlık olarak RapidAPI üzerinden çekilmektedir.
+                    <div class="card-footer bg-light text-center py-3 border-top">
+                        <small class="text-muted" style="font-size: 0.75rem;">
+                            <i class="fa-solid fa-shield-halved me-1"></i> Veriler güvenli RapidAPI bağlantısı ile anlık çekilmektedir.
+                        </small>
+                    </div>
                 </div>
 
             </div>
@@ -167,24 +335,17 @@
     </div>
 
     <script>
+        // Tablo Filtreleme
         function filterTable() {
-            // 1. Girdiyi al
             var input = document.getElementById("currencySearch");
             var filter = input.value.toUpperCase();
-
-            // 2. Tabloyu ve satırları bul
             var table = document.getElementById("ratesTable");
             var tr = table.getElementsByTagName("tr");
 
-            // 3. Döngü ile kontrol et
             for (var i = 0; i < tr.length; i++) {
-                // Her satırın ilk hücresini (Para Birimi ismini) al
-                var td = tr[i].getElementsByTagName("td")[0];
-
+                var td = tr[i].getElementsByTagName("td")[0]; // Para birimi sütunu
                 if (td) {
                     var txtValue = td.textContent || td.innerText;
-
-                    // Eğer aranan kelime içinde varsa göster, yoksa gizle
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
                     } else {
@@ -192,6 +353,23 @@
                     }
                 }
             }
+        }
+
+        // Tarih Gösterme
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById("currentDate").innerText = new Date().toLocaleDateString('tr-TR', dateOptions);
+
+        // Kopyalama Fonksiyonu
+        function copyToClipboard(element, text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Görsel geri bildirim
+                element.classList.add('copied');
+                setTimeout(function() {
+                    element.classList.remove('copied');
+                }, 1500);
+            }, function(err) {
+                console.error('Kopyalama hatası: ', err);
+            });
         }
     </script>
 

@@ -1,0 +1,243 @@
+﻿@model List<NasdaqViewModel.Class1>
+@{
+    Layout = null;
+    int a= 1;
+}
+
+
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Instant Crypto AI Dashboard - Terminal V1.0</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ffffff",
+                        "background-dark": "#000000",
+                        "surface-dark": "#050505",
+                        "border-dark": "#222222",
+                        "text-secondary": "#666666",
+                        "text-primary": "#ffffff",
+                        "terminal-green": "#00ff41",
+                        "terminal-red": "#ff3131",
+                    },
+                    fontFamily: {
+                        "mono": ["JetBrains Mono", "monospace"],
+                        "display": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "0px"},
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @@layer base {
+            body
+
+        {
+            @@apply font-mono bg-black text-white;
+        }
+
+        }
+
+        ::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+        }
+
+        .blinking-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: white;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+        @@keyframes blink {
+            0%, 100%
+
+        {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        }
+
+        .text-border-bottom {
+            background-image: linear-gradient(to right, #333 33%, rgba(255,255,255,0) 0%);
+            background-position: bottom;
+            background-size: 8px 1px;
+            background-repeat: repeat-x;
+        }
+
+        .terminal-block {
+            border: 1px solid #222;
+            position: relative;
+        }
+
+            .terminal-block::before {
+                content: "[";
+                position: absolute;
+                top: -10px;
+                left: 10px;
+                background: black;
+                padding: 0 4px;
+                color: #444;
+                font-size: 10px;
+            }
+
+            .terminal-block::after {
+                content: "]";
+                position: absolute;
+                bottom: -10px;
+                right: 10px;
+                background: black;
+                padding: 0 4px;
+                color: #444;
+                font-size: 10px;
+            }
+
+        .data-stream-row:hover {
+            background: #0a0a0a;
+            color: #00ff41;
+        }
+
+            .data-stream-row:hover .asset-price {
+                color: #00ff41;
+            }
+    </style>
+</head>
+
+
+<body class="h-screen flex overflow-hidden selection:bg-white selection:text-black">
+    <aside class="w-16 border-r border-border-dark flex flex-col items-center py-6 bg-black z-20 flex-shrink-0">
+        <div class="mb-10">
+            <span class="material-symbols-outlined text-2xl text-white">terminal</span>
+        </div>
+        <nav class="space-y-8 w-full flex flex-col items-center">
+            <a class="p-2 text-white border-l-2 border-white w-full flex items-center justify-center" href="#">
+                <span class="material-symbols-outlined text-[20px]">grid_view</span>
+            </a>
+            <a class="p-2 text-text-secondary hover:text-white transition-colors w-full flex items-center justify-center" href="#">
+                <span class="material-symbols-outlined text-[20px]">database</span>
+            </a>
+            <a class="p-2 text-text-secondary hover:text-white transition-colors w-full flex items-center justify-center" href="#">
+                <span class="material-symbols-outlined text-[20px]">monitoring</span>
+            </a>
+            <a class="p-2 text-text-secondary hover:text-white transition-colors w-full flex items-center justify-center" href="#">
+                <span class="material-symbols-outlined text-[20px]">code</span>
+            </a>
+        </nav>
+        <div class="mt-auto flex flex-col items-center gap-6">
+            <a class="p-2 text-text-secondary hover:text-white transition-colors" href="#">
+                <span class="material-symbols-outlined text-[20px]">settings_input_component</span>
+            </a>
+            <div class="w-8 h-8 border border-border-dark flex items-center justify-center overflow-hidden">
+                <img alt="User" class="w-full h-full object-cover grayscale brightness-75" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrGTLnKO5_MoM-246XoCBqB7PwqIMVZoXlabMdgHYA7pXqqPt1sS_An09MY_Lke1mDXyoPUScu3BT55wB2nhZeIs2otIibVeRnGSgoNGozA4ck6JOSOlmcyN3rp1ml1mWKiF44yeEIS48V3qDQeMppTSOCwjcqRdX4aerWvwbrKNn0XdXqmvyY3lemFoAjcsAHfd8JD2ky-tbbFqtnDMjBXNBf1IRtbqQOXfsAxBAPprschEBN1NgUJ4b8RhWKCqgO6_QG8AXbenB9" />
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 flex overflow-hidden">
+        <div class="flex-1 flex flex-col bg-black border-r border-border-dark">
+            <header class="p-6 border-b border-border-dark flex justify-between items-center bg-black">
+                <div class="flex items-baseline gap-4">
+                    <h1 class="text-sm font-bold tracking-[0.2em] text-white uppercase">NASDAQ TOP 50</h1>
+                    <span class="text-[10px] text-terminal-green animate-pulse">● RUNNING</span>
+                </div>
+                <div class="text-[10px] text-text-secondary flex gap-6">
+                    <span>UPTIME: @DateTime.Now</span>
+                </div>
+            </header>
+            <div class="flex-1 overflow-y-auto">
+                <div class="w-full">
+                    <div class="flex items-center px-6 py-3 border-b border-border-dark bg-black text-[10px] text-text-secondary uppercase tracking-widest sticky top-0 z-10">
+                        <span class="w-12">#</span>
+                        <span class="flex-1">QUOTA</span>
+                        <span class="w-32 text-right">PRICE_USD</span>
+                        <span class="w-32 text-right">CHG_24H</span>
+                    </div>
+                    <div class="data-stream text-xs">
+           
+                        
+                      @foreach(var item in Model)
+                        {
+                           
+                            <div class="data-stream-row flex items-center px-6 py-4 border-b border-border-dark/30 transition-all cursor-crosshair">
+                                <span class="w-12 text-text-secondary">@a</span>
+                                <div class="flex-1 flex items-center gap-3">
+                                    <span class="font-bold">@item.name</span>
+                                    <span class="text-text-secondary text-[10px]">[@item.symbol]</span>
+                                </div>
+                                <span class="w-32 text-right asset-price">$@item.price</span>
+                                @if(item.change<0)
+                                {
+                                    <span class="w-32 text-right text-terminal-red">@item.change%</span>
+                                }
+                                else
+                                {
+                                    <span class="w-32 text-right text-terminal-green">@item.change%</span>
+                                }
+
+
+                            </div>
+                            a++;
+
+
+                        }
+
+                        
+                        
+                        
+                        
+                        <div class="px-6 py-2 text-[10px] text-border-dark">&gt;&gt;&gt; END OF INITIALIZATION BUFFER &lt;&lt;&lt;</div>
+                 
+                    
+                    
+                    
+                    
+                    
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        @await Component.InvokeAsync("AiComponent")
+    
+    
+    
+    
+    
+    </main>
+
+</body>
+</html>
+
+
+
+
