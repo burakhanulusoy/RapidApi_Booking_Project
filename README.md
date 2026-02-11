@@ -4,7 +4,7 @@
 
 ![.NET 8.0](https://img.shields.io/badge/.NET-8.0-purple?style=flat&logo=dotnet) ![Gemini AI](https://img.shields.io/badge/Google-Gemini_2.5_Pro-blue?style=flat&logo=google) ![RapidAPI](https://img.shields.io/badge/RapidAPI-Integrated-green?style=flat&logo=rapid) ![Status](https://img.shields.io/badge/Status-Completed-success?style=flat)
 
-[![Watch Demo Video](https://img.shields.io/badge/▶_-Proje_Demo_Videosunu_İzle-red?style=for-the-badge&logo=youtube&logoColor=white)](BURAYA_VİDEO_LİNKİNİ_YAPIŞTIR)
+[![Watch Demo Video](https://img.shields.io/badge/▶_-Proje_Demo_Videosunu_İzle-red?style=for-the-badge&logo=youtube&logoColor=white)](https://www.linkedin.com/in/burakhanulusoy/)
 
 ---
 
