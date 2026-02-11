@@ -138,12 +138,9 @@ Projeyi yerel makinenizde çalıştırmak için adımları takip edin:
     {
       "Gemini": {
         "ApiKey": "BURAYA_GOOGLE_GEMINI_API_KEY_GELECEK"
-      },
-      "RapidApi": {
-         "BookingApiKey": "BURAYA_RAPID_API_KEY_GELECEK",
-         "ImdbApiKey": "BURAYA_RAPID_API_KEY_GELECEK"
-         // Diğer gerekli API keyler...
-      }
+     }
+  
+      
     }
     ```
 
