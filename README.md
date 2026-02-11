@@ -106,7 +106,8 @@ Projeye ait görselleri kategoriler halinde aşağıda bulabilirsiniz. Görünt�
   <img src="https://github.com/user-attachments/assets/46d24395-467c-4a19-a2d1-8e40a7920061" width="800">
   <img src="https://github.com/user-attachments/assets/94175937-baa6-480c-bb4a-92ddeee379df" width="800">
   <img src="https://github.com/user-attachments/assets/d56eb9d7-3b9b-4e84-9e98-579398214dd6" width="800">
-  <img src="https://github.com/user-attachments/assets/3460ca89-7f7e-49ad-a4bd-4928f9df6c9a" width="800">
+   <img width="800"  src="https://github.com/user-attachments/assets/a46086b0-c96d-4c73-9ffc-e224448596e4" />
+
 </details>
 
 <details>
